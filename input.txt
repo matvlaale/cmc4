@@ -1,0 +1,9 @@
+program {
+  int a, b = 10;
+  string str = "hh";
+  a = 0;
+  while (a != b) {
+    write(a, b);
+    a = a + 1;
+  }
+}@
