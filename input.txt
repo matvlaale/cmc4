@@ -1,9 +1,17 @@
 program {
-  int a, b = 10;
-  string str = "hh";
-  a = 0;
-  while (a != b) {
-    write(a, b);
-    a = a + 1;
+  int a, b;
+  string str, zap;
+  bool unt, mil;
+  unt = true;
+  str = "internet";
+  b = 10;
+  read(a);
+  if (b == a)
+    write(str);
+  while (a / 5 + b % 2 == true) {
+    a = 10;
+    read(a);
+    if (a == b)
+      break;
   }
 }@
