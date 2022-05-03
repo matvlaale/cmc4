@@ -283,7 +283,9 @@ class Parser {
     void  T();
     void  F();
     void  dec (type_of_lex type);
+    void  ass (int val);
     void  check_id ();
+    void  check_ass();
     void  check_op ();
     void  check_not ();
     void  eq_type ();
@@ -413,7 +415,11 @@ void Parser::B1() {
 void Parser::B() {
     if (c_type == LEX_LFG) {
         gl();
-        S();
+        if (c_type == LEX_RFG) {
+          c_type = LEX_SEMICOLON;
+          return;
+        }
+        else S();
         while (c_type == LEX_SEMICOLON) {
             gl();
             if (c_type == LEX_RFG) break;
@@ -455,8 +461,6 @@ void Parser::S() {
             S();
             poliz[pl3] = Lex(POLIZ_LABEL, poliz.size());
         }
-        else
-            throw curr_lex;
     }//end if
     else if (c_type == LEX_WHILE) {
         pl0 = poliz.size();
@@ -478,7 +482,9 @@ void Parser::S() {
             gl();
             if (c_type == LEX_ID) {
                 check_id_in_read();
+                
                 poliz.push_back(Lex( POLIZ_ADDRESS, c_val));
+                ass(c_val);
                 gl();
             }
             else
@@ -516,6 +522,7 @@ void Parser::S() {
         check_id(); 
 
         poliz.push_back (Lex(POLIZ_ADDRESS, c_val));
+        ass(c_val);
         gl();
         if (c_type == LEX_ASSIGN) {
             gl();
@@ -570,6 +577,7 @@ void Parser::T() {
 void Parser::F() {
     if (c_type == LEX_ID) {
         check_id();
+        check_ass();
         poliz.push_back(Lex(LEX_ID, c_val));
         gl();
     }
@@ -641,11 +649,22 @@ void Parser::dec(type_of_lex type) {
     }
 }
 
+void Parser::ass(int val) {
+    TID[val].put_assign();
+}
+
 void Parser::check_id() {
     if (TID[c_val].get_declare())
         st_lex.push(TID[c_val].get_type());
     else 
         throw "not declared";
+}
+
+void Parser::check_ass() {
+    if (TID[c_val].get_assign())
+        st_lex.push(TID[c_val].get_type());
+    else 
+        throw "not assigned";
 }
 
 void Parser::check_op() {
