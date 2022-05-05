@@ -713,7 +713,6 @@ void Parser::check_id_in_read() {
 }
 
 ////////////////////////////////////////////////
-
 ostream & operator<< ( ostream &out, Lex l ){
   int type = l.get_type();
   if (type < LEX_FIN) 
