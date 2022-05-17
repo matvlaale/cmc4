@@ -1,24 +1,20 @@
 program {
-  int a, b;
-  string str, zap;
-  bool unt, mil;
-  unt = true;
-  str = "internet";
-  b = 10;
-  read(a);
-  write(str);
-  while (a / 5 == b / 2) {
-    a = 10;
-    read(a);
-    if (a == b) {
-      break;
-    } else write("jojo");
-  }
-}@
-
-
-альтернативно:
-program {
-  int a;
-  a = true;
+  int a, b = 10;
+  bool j = true;
+  string str = "qubo";
+  a = 3;
+  if((a + b >= 3) and (b > 5)) 
+    a = 5;
+  else 
+    a = 9;
+  write(a);
+  while (a != b) {
+    write(a, b);
+    a = a + 1;
+  };
+  while (a >= b) {
+    write(a, b);
+    a = a + 1;
+    break;
+  };
 }@
